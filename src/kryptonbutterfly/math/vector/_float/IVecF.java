@@ -1,6 +1,6 @@
-package de.tinycodecrank.math.vector._float;
+package kryptonbutterfly.math.vector._float;
 
-import de.tinycodecrank.math.vector.IVector;
+import kryptonbutterfly.math.vector.IVector;
 
 public interface IVecF<Vec extends IVecF<Vec>> extends IVector<Vec>
 {

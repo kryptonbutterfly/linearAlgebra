@@ -1,4 +1,4 @@
-package de.tinycodecrank.math.vector._long;
+package kryptonbutterfly.math.vector._long;
 
 import java.util.function.IntToLongFunction;
 

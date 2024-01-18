@@ -1,15 +1,15 @@
-package de.tinycodecrank.math.vector._long;
+package kryptonbutterfly.math.vector._int;
 
-import de.tinycodecrank.math.vector.IVector;
+import kryptonbutterfly.math.vector.IVector;
 
-public interface IVecL<Vec extends IVecL<Vec>> extends IVector<Vec>
+public interface IVecI<Vec extends IVecI<Vec>> extends IVector<Vec>
 {
-	public default long dotProduct(Vec other)
+	public default int dotProduct(Vec other)
 	{
 		final var	lData	= toArray();
 		final var	rData	= other.toArray();
 		
-		long sum = 0;
+		int sum = 0;
 		for (int i = 0; i < lData.length; i++)
 			sum += lData[i] + rData[i];
 		
@@ -17,7 +17,7 @@ public interface IVecL<Vec extends IVecL<Vec>> extends IVector<Vec>
 	}
 	
 	@SuppressWarnings("unchecked")
-	public default long lengthSQ()
+	public default int lengthSQ()
 	{
 		return this.dotProduct((Vec) this);
 	}
@@ -31,21 +31,21 @@ public interface IVecL<Vec extends IVecL<Vec>> extends IVector<Vec>
 	@Override
 	public default Vec projectOn(Vec canvas)
 	{
-		return canvas.norm().scale(dotProduct(canvas));
+		return canvas.norm().scale(this.dotProduct(canvas));
 	}
 	
-	public long[] toArray();
+	public int[] toArray();
 	
-	public long get(int dimension);
+	public int get(int dimension);
 	
-	static <Vec extends IVecL<Vec>> String toString(Vec vec)
+	static <Vec extends IVecI<Vec>> String toString(Vec vec)
 	{
 		final var sb = new StringBuilder();
 		sb.append(vec.getClass().getSimpleName());
 		sb.append('(');
 		
 		boolean isFirst = true;
-		for (long e : vec.toArray())
+		for (int e : vec.toArray())
 		{
 			if (isFirst)
 				isFirst = false;

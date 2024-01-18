@@ -1,4 +1,4 @@
-package de.tinycodecrank.math.vector._int;
+package kryptonbutterfly.math.vector._int;
 
 public record Vec3i(int x, int y, int z) implements IVecI<Vec3i>
 {

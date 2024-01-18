@@ -1,4 +1,4 @@
-package de.tinycodecrank.math.vector._double;
+package kryptonbutterfly.math.vector._double;
 
 public record Vec4d(double x, double y, double z, double w) implements IVecD<Vec4d>
 {

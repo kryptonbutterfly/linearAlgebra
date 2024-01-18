@@ -1,4 +1,4 @@
-package de.tinycodecrank.math.vector._float;
+package kryptonbutterfly.math.vector._float;
 
 public record Vec2f(float x, float y) implements IVecF<Vec2f>
 {

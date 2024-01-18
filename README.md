@@ -1,4 +1,4 @@
-# linearAlgebra [![Maven Package](https://github.com/tinycodecrank/linearAlgebra/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/tinycodecrank/linearAlgebra/actions/workflows/maven-publish.yml)
+# linearAlgebra [![Maven Package](https://github.com/kryptonbutterfly/linearAlgebra/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/kryptonbutterfly/linearAlgebra/actions/workflows/maven-publish.yml)
 
 A collection of Vector implementations.
 
@@ -7,7 +7,7 @@ A collection of Vector implementations.
 ```xml
 <repository>
   <id>github</id>
-  <url>https://maven.pkg.github.com/tinycodecrank/maven-repo</url>
+  <url>https://maven.pkg.github.com/kryptonbutterfly/maven-repo</url>
 </repository>
 ```
 

@@ -1,4 +1,4 @@
-package de.tinycodecrank.math.vector._double;
+package kryptonbutterfly.math.vector._double;
 
 import java.util.function.IntToDoubleFunction;
 

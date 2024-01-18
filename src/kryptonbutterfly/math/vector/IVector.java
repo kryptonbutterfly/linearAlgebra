@@ -1,4 +1,4 @@
-package de.tinycodecrank.math.vector;
+package kryptonbutterfly.math.vector;
 
 public interface IVector<Vec extends IVector<Vec>>
 {

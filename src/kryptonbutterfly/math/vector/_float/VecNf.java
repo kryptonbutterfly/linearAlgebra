@@ -1,6 +1,6 @@
-package de.tinycodecrank.math.vector._float;
+package kryptonbutterfly.math.vector._float;
 
-import de.tinycodecrank.functions.int_.IntToFloatFunction;
+import kryptonbutterfly.functions.int_.IntToFloatFunction;
 
 public class VecNf implements IVecF<VecNf>
 {

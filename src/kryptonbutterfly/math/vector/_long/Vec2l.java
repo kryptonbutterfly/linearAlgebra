@@ -1,4 +1,4 @@
-package de.tinycodecrank.math.vector._long;
+package kryptonbutterfly.math.vector._long;
 
 public record Vec2l(long x, long y) implements IVecL<Vec2l>
 {

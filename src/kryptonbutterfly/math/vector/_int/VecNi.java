@@ -1,4 +1,4 @@
-package de.tinycodecrank.math.vector._int;
+package kryptonbutterfly.math.vector._int;
 
 import java.util.function.IntUnaryOperator;
 
