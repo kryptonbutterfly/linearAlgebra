@@ -5,6 +5,7 @@ module kryptonbutterfly.linear_algebra
 	exports kryptonbutterfly.math.vector._float;
 	exports kryptonbutterfly.math.vector._int;
 	exports kryptonbutterfly.math.vector._long;
+	exports kryptonbutterfly.math.geometry;
 	
 	requires kryptonbutterfly.Functional;
 }
