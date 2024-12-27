@@ -11,7 +11,7 @@ public interface IVecF<Vec extends IVecF<Vec>> extends IVector<Vec>
 		
 		float sum = 0;
 		for (int i = 0; i < lData.length; i++)
-			sum += lData[i] + rData[i];
+			sum += lData[i] * rData[i];
 		
 		return sum;
 	}
