@@ -1,5 +1,6 @@
 module kryptonbutterfly.linear_algebra
 {
+	exports kryptonbutterfly.math;
 	exports kryptonbutterfly.math.vector;
 	exports kryptonbutterfly.math.vector._double;
 	exports kryptonbutterfly.math.vector._float;

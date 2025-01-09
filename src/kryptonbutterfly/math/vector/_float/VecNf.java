@@ -4,9 +4,18 @@ import kryptonbutterfly.functions.int_.IntToFloatFunction;
 
 public class VecNf implements IVecF<VecNf>
 {
+	/**
+	 * The backing array of this vector.
+	 */
 	private final float[] data;
 	
-	public VecNf(float[] data)
+	/**
+	 * Creates a new Vector using the supplied values.
+	 * 
+	 * @param data
+	 *            The values to construct the vector from.
+	 */
+	public VecNf(float... data)
 	{
 		this.data = data;
 	}
@@ -14,14 +23,14 @@ public class VecNf implements IVecF<VecNf>
 	@Override
 	public VecNf add(VecNf other)
 	{
-		validate(other);
+		validateDimensionalityMatch(other);
 		return perform(i -> data[i] + other.data[i]);
 	}
 	
 	@Override
 	public VecNf sub(VecNf other)
 	{
-		validate(other);
+		validateDimensionalityMatch(other);
 		return perform(i -> data[i] - other.data[i]);
 	}
 	
@@ -46,15 +55,18 @@ public class VecNf implements IVecF<VecNf>
 	@Override
 	public float get(int dimension)
 	{
-		return data.length;
+		return data[dimension];
 	}
 	
-	private void validate(VecNf other)
-	{
-		if (this.dimensions() != other.dimensions())
-			throw new IllegalArgumentException("Vectors must not be of differernt dimensions!");
-	}
-	
+	/**
+	 * Performs the supplied {@code operation} for every dimension of {@code this}
+	 * vector and collects the results in a new instance.
+	 * 
+	 * @param operation
+	 *            The operation to be performed upon every dimension of {@code this}
+	 *            vector.
+	 * @return A new vector containing the result of the performed operations.
+	 */
 	private VecNf perform(IntToFloatFunction operation)
 	{
 		final float[] result = new float[dimensions()];
@@ -64,8 +76,23 @@ public class VecNf implements IVecF<VecNf>
 	}
 	
 	@Override
+	/**
+	 * @return A string representation of {@code this} vector.
+	 */
 	public String toString()
 	{
 		return IVecF.toString(this);
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		return IVecF.equals(this, other);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return IVecF.hashCode(this);
 	}
 }

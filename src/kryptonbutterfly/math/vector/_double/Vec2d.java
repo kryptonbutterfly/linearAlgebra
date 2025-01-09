@@ -37,15 +37,30 @@ public record Vec2d(double x, double y) implements IVecD<Vec2d>
 	{
 		return switch (dimension)
 		{
-		case 0 -> x;
-		case 1 -> y;
-		default -> throw indexOutOfBounds(dimension);
+			case 0 -> x;
+			case 1 -> y;
+			default -> throw indexOutOfBounds(dimension);
 		};
 	}
 	
 	@Override
+	/**
+	 * @return A string representation of {@code this} vector.
+	 */
 	public String toString()
 	{
 		return IVecD.toString(this);
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		return IVecD.equals(this, other);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return IVecD.hashCode(this);
 	}
 }

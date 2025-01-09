@@ -37,17 +37,32 @@ public record Vec4d(double x, double y, double z, double w) implements IVecD<Vec
 	{
 		return switch (dimension)
 		{
-		case 0 -> x;
-		case 1 -> y;
-		case 2 -> z;
-		case 3 -> w;
-		default -> throw indexOutOfBounds(dimension);
+			case 0 -> x;
+			case 1 -> y;
+			case 2 -> z;
+			case 3 -> w;
+			default -> throw indexOutOfBounds(dimension);
 		};
 	}
 	
 	@Override
+	/**
+	 * @return A string representation of {@code this} vector.
+	 */
 	public String toString()
 	{
 		return IVecD.toString(this);
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		return IVecD.equals(this, other);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return IVecD.hashCode(this);
 	}
 }

@@ -37,17 +37,32 @@ public record Vec3l(long x, long y, long z) implements IVecL<Vec3l>
 	{
 		return switch (dimension)
 		{
-		case 0 -> x;
-		case 1 -> y;
-		case 2 -> z;
-		default -> throw indexOutOfBounds(dimension);
+			case 0 -> x;
+			case 1 -> y;
+			case 2 -> z;
+			default -> throw indexOutOfBounds(dimension);
 		};
 	}
 	
 	@Override
+	/**
+	 * @return A string representation of {@code this} vector.
+	 */
 	public String toString()
 	{
 		return IVecL.toString(this);
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		return IVecL.equals(this, other);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return IVecL.hashCode(this);
 	}
 	
 }

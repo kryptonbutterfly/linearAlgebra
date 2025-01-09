@@ -37,16 +37,31 @@ public record Vec3f(float x, float y, float z) implements IVecF<Vec3f>
 	{
 		return switch (dimension)
 		{
-		case 0 -> x;
-		case 1 -> y;
-		case 2 -> z;
-		default -> throw indexOutOfBounds(dimension);
+			case 0 -> x;
+			case 1 -> y;
+			case 2 -> z;
+			default -> throw indexOutOfBounds(dimension);
 		};
 	}
 	
 	@Override
+	/**
+	 * @return A string representation of {@code this} vector.
+	 */
 	public String toString()
 	{
 		return IVecF.toString(this);
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		return IVecF.equals(this, other);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return IVecF.hashCode(this);
 	}
 }

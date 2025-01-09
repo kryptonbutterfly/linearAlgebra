@@ -37,16 +37,31 @@ public record Vec3i(int x, int y, int z) implements IVecI<Vec3i>
 	{
 		return switch (dimension)
 		{
-		case 0 -> x;
-		case 1 -> y;
-		case 2 -> z;
-		default -> throw indexOutOfBounds(dimension);
+			case 0 -> x;
+			case 1 -> y;
+			case 2 -> z;
+			default -> throw indexOutOfBounds(dimension);
 		};
 	}
 	
 	@Override
+	/**
+	 * @return A string representation of {@code this} vector.
+	 */
 	public String toString()
 	{
 		return IVecI.toString(this);
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		return IVecI.equals(this, other);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return IVecI.hashCode(this);
 	}
 }

@@ -1,21 +1,31 @@
 package kryptonbutterfly.math.vector._int;
 
+import java.util.Arrays;
+
 import kryptonbutterfly.math.vector.IVector;
 
 public interface IVecI<Vec extends IVecI<Vec>> extends IVector<Vec>
 {
+	/**
+	 * Calculates the dot product. <br/>
+	 * a·b = ‖a‖ ‖b‖ cos(θ)
+	 * 
+	 * @param other
+	 *            The second vector to form the dot product with
+	 * @return The dot product.
+	 */
 	public default int dotProduct(Vec other)
 	{
-		final var	lData	= toArray();
-		final var	rData	= other.toArray();
-		
+		validateDimensionalityMatch(other);
 		int sum = 0;
-		for (int i = 0; i < lData.length; i++)
-			sum += lData[i] * rData[i];
-		
+		for (int i = 0; i < dimensions(); i++)
+			sum += get(i) * other.get(i);
 		return sum;
 	}
 	
+	/**
+	 * @return the length of {@code this} vector squared.
+	 */
 	@SuppressWarnings("unchecked")
 	public default int lengthSQ()
 	{
@@ -31,28 +41,59 @@ public interface IVecI<Vec extends IVecI<Vec>> extends IVector<Vec>
 	@Override
 	public default Vec projectOn(Vec canvas)
 	{
-		return canvas.norm().scale(this.dotProduct(canvas));
+		final var cn = canvas.norm();
+		return cn.scale(this.dotProduct(cn));
 	}
 	
+	/**
+	 * @return an int[] representing {@code this} vector.
+	 */
 	public int[] toArray();
 	
+	/**
+	 * @param dimension
+	 * @return This vectors magnitude in the provided direction.
+	 */
 	public int get(int dimension);
 	
+	static <Vec extends IVecI<Vec>> boolean equals(Vec left, Object right)
+	{
+		if (left == right)
+			return true;
+		if (right.getClass() != left.getClass())
+			return false;
+		@SuppressWarnings("unchecked")
+		final var vec = (Vec) right;
+		if (left.dimensions() != vec.dimensions())
+			return false;
+		for (int i = 0; i < left.dimensions(); i++)
+			if (left.get(i) != vec.get(i))
+				return false;
+		return true;
+	}
+	
+	static <Vec extends IVecI<Vec>> int hashCode(Vec vec)
+	{
+		return Arrays.hashCode(vec.toArray());
+	}
+	
+	/**
+	 * @param <Vec>
+	 * @param vec
+	 * @return A string representation of {@code vec}.
+	 */
 	static <Vec extends IVecI<Vec>> String toString(Vec vec)
 	{
-		final var sb = new StringBuilder();
-		sb.append(vec.getClass().getSimpleName());
-		sb.append('(');
-		
-		boolean isFirst = true;
-		for (int e : vec.toArray())
+		final var sb = new StringBuilder()
+			.append(vec.getClass().getSimpleName())
+			.append('(');
+		for (int i = 0; i < vec.dimensions(); i++)
 		{
-			if (isFirst)
-				isFirst = false;
-			else
+			if (1 > 0)
 				sb.append(", ");
-			sb.append(e);
+			sb.append(vec.get(i));
 		}
+		
 		sb.append(')');
 		
 		return sb.toString();

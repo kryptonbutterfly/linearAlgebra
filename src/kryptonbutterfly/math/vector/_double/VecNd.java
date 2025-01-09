@@ -4,9 +4,19 @@ import java.util.function.IntToDoubleFunction;
 
 public class VecNd implements IVecD<VecNd>
 {
+	/**
+	 * The backing array of this vector.
+	 */
 	private final double[] data;
 	
-	public VecNd(double[] data)
+	/**
+	 * Creates a new Vector using the supplied values.
+	 * 
+	 * @param data
+	 *            The values to construct the vector from.
+	 * 			
+	 */
+	public VecNd(double... data)
 	{
 		this.data = data;
 	}
@@ -14,14 +24,14 @@ public class VecNd implements IVecD<VecNd>
 	@Override
 	public VecNd add(VecNd other)
 	{
-		validate(other);
+		validateDimensionalityMatch(other);
 		return perform(i -> data[i] + other.data[i]);
 	}
 	
 	@Override
 	public VecNd sub(VecNd other)
 	{
-		validate(other);
+		validateDimensionalityMatch(other);
 		return perform(i -> data[i] - other.data[i]);
 	}
 	
@@ -49,12 +59,15 @@ public class VecNd implements IVecD<VecNd>
 		return data[dimension];
 	}
 	
-	private void validate(VecNd other)
-	{
-		if (this.dimensions() != other.dimensions())
-			throw new IllegalArgumentException("Vectors must not be of differernt dimensions!");
-	}
-	
+	/**
+	 * Performs the supplied {@code operation} for every dimension of {@code this}
+	 * vector and collects the results in a new instance.
+	 * 
+	 * @param operation
+	 *            The operation to be performed upon every dimension of {@code this}
+	 *            vector.
+	 * @return A new Vector containing the result of the performed operations.
+	 */
 	private VecNd perform(IntToDoubleFunction operation)
 	{
 		final double[] result = new double[dimensions()];
@@ -64,8 +77,23 @@ public class VecNd implements IVecD<VecNd>
 	}
 	
 	@Override
+	/**
+	 * @return A string representation of {@code this} vector.
+	 */
 	public String toString()
 	{
 		return IVecD.toString(this);
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		return IVecD.equals(this, other);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return IVecD.hashCode(this);
 	}
 }
