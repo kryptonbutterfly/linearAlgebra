@@ -12,7 +12,7 @@
 
  * Vector implementations:
 
-dimensions | 2  | 3  | 4  | n where n ∊ ℕ⁺
+dimensions | 2  | 3  | 4  | n where n ∊ ℕ
 :--------- | :- | :- | :- | :-
  `int`            | [Vec2i](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/vector/_int/Vec2i.java) | [Vec3i](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/vector/_int/Vec3i.java) | – | [VecNi](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/vector/_int/VecNi.java)
  `long`           | [Vec2l](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/vector/_long/Vec2l.java) | [Vec3l](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/vector/_long/Vec3l.java) | – | [VecNl](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/vector/_long/VecNl.java)
@@ -39,7 +39,7 @@ All `double` backed vectors implement [IVecD](https://github.com/kryptonbutterfl
 <dependency>
   <groupId>kryptonbutterfly</groupId>
   <artifactId>linear_algebra</artifactId>
-  <version>3.0.0</version>
+  <version>4.0.0</version>
 </dependency>
 ```
 
@@ -47,6 +47,7 @@ All `double` backed vectors implement [IVecD](https://github.com/kryptonbutterfl
 
 java version | library version | Download
 :----------: | :-------------: | :-------
+18+          | 4.0.0           | [linear_algebra-4.0.0.jar](https://github.com/kryptonbutterfly/linearAlgebra/releases/download/v4.0.0/linear_algebra-4.0.0.jar)
 18+          | 3.0.0           | [linear_algebra-3.0.0.jar](https://github.com/kryptonbutterfly/linearAlgebra/releases/download/v3.0.0/linear_algebra-3.0.0.jar)
 18+          | 2.0.0           | ——
 18+          | 1.1.0           | ——
