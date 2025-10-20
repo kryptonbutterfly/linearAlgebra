@@ -60,14 +60,12 @@ public interface IVecI<Vec extends IVecI<Vec>> extends IVector<Vec>
 	{
 		if (left == right)
 			return true;
-		if (right.getClass() != left.getClass())
+		if (!(right instanceof IVecI r))
 			return false;
-		@SuppressWarnings("unchecked")
-		final var vec = (Vec) right;
-		if (left.dimensions() != vec.dimensions())
+		if (left.dimensions() != r.dimensions())
 			return false;
 		for (int i = 0; i < left.dimensions(); i++)
-			if (left.get(i) != vec.get(i))
+			if (left.get(i) != r.get(i))
 				return false;
 		return true;
 	}
@@ -87,15 +85,15 @@ public interface IVecI<Vec extends IVecI<Vec>> extends IVector<Vec>
 		final var sb = new StringBuilder()
 			.append(vec.getClass().getSimpleName())
 			.append('(');
+		
 		for (int i = 0; i < vec.dimensions(); i++)
 		{
-			if (1 > 0)
+			if (i > 0)
 				sb.append(", ");
 			sb.append(vec.get(i));
 		}
 		
 		sb.append(')');
-		
 		return sb.toString();
 	}
 }

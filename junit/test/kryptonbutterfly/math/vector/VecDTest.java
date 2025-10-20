@@ -2,11 +2,10 @@ package test.kryptonbutterfly.math.vector;
 
 import static kryptonbutterfly.math.utils.range.Range.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static test.kryptonbutterfly.math.vector.VectorTarget.*;
 
 import java.util.Random;
+import java.util.function.DoubleBinaryOperator;
 import java.util.function.IntToDoubleFunction;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DynamicTest;
@@ -19,6 +18,7 @@ import kryptonbutterfly.math.vector._double.Vec3d;
 import kryptonbutterfly.math.vector._double.Vec4d;
 import kryptonbutterfly.math.vector._double.VecNd;
 import lombok.SneakyThrows;
+import test.kryptonbutterfly.math.Targets;
 
 public class VecDTest
 {
@@ -42,41 +42,50 @@ public class VecDTest
 		return (Vec) constructor.newInstance(values);
 	}
 	
+	private static <Vec extends IVecD<Vec>> IntToDoubleFunction perform(Vec first, Vec second, DoubleBinaryOperator op)
+	{
+		return i -> op.applyAsDouble(first.get(i), second.get(i));
+	}
+	
 	@Test
 	public void add()
 	{
+		final DoubleBinaryOperator op = (a, b) -> a + b;
+		
 		final var	f2	= randVec2();
 		final var	s2	= randVec2();
-		final var	e2	= genVec(i -> f2.get(i) + s2.get(i), Vec2d.class, 2);
+		final var	e2	= genVec(perform(f2, s2, op), Vec2d.class, 2);
 		assertEquals(e2, f2.add(s2));
 		
 		final var	f3	= randVec3();
 		final var	s3	= randVec3();
-		final var	e3	= genVec(i -> f3.get(i) + s3.get(i), Vec3d.class, 3);
+		final var	e3	= genVec(perform(f3, s3, op), Vec3d.class, 3);
 		assertEquals(e3, f3.add(s3));
 		
 		final var	f4	= randVec4();
 		final var	s4	= randVec4();
-		final var	e4	= genVec(i -> f4.get(i) + s4.get(i), Vec4d.class, 4);
+		final var	e4	= genVec(perform(f4, s4, op), Vec4d.class, 4);
 		assertEquals(e4, f4.add(s4));
 	}
 	
 	@Test
 	public void sub()
 	{
+		final DoubleBinaryOperator op = (a, b) -> a - b;
+		
 		final var	f2	= randVec2();
 		final var	s2	= randVec2();
-		final var	e2	= genVec(i -> f2.get(i) - s2.get(i), Vec2d.class, 2);
+		final var	e2	= genVec(perform(f2, s2, op), Vec2d.class, 2);
 		assertEquals(e2, f2.sub(s2));
 		
 		final var	f3	= randVec3();
 		final var	s3	= randVec3();
-		final var	e3	= genVec(i -> f3.get(i) - s3.get(i), Vec3d.class, 3);
+		final var	e3	= genVec(perform(f3, s3, op), Vec3d.class, 3);
 		assertEquals(e3, f3.sub(s3));
 		
 		final var	f4	= randVec4();
 		final var	s4	= randVec4();
-		final var	e4	= genVec(i -> f4.get(i) - s4.get(i), Vec4d.class, 4);
+		final var	e4	= genVec(perform(f4, s4, op), Vec4d.class, 4);
 		assertEquals(e4, f4.sub(s4));
 	}
 	
@@ -186,13 +195,14 @@ public class VecDTest
 	@TestFactory
 	Stream<DynamicTest> addN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		final DoubleBinaryOperator op = (a, b) -> a + b;
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("VecNd[%d].add".formatted(n), () ->
 			{
 				final var first	= genVec(_i -> randNum(), VecNd.class, n);
 				final var second = genVec(_i -> randNum(), VecNd.class, n);
 				
-				final var expected = genVec(i -> first.get(i) + second.get(i), VecNd.class, n);
+				final var expected = genVec(perform(first, second, op), VecNd.class, n);
 				
 				assertEquals(expected, first.add(second));
 			}));
@@ -201,13 +211,14 @@ public class VecDTest
 	@TestFactory
 	Stream<DynamicTest> subN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		final DoubleBinaryOperator op = (a, b) -> a - b;
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("VecNd[%d].sub".formatted(n), () ->
 			{
 				final var first	= genVec(_i -> randNum(), VecNd.class, n);
 				final var second = genVec(_i -> randNum(), VecNd.class, n);
 				
-				final var expected = genVec(i -> first.get(i) - second.get(i), VecNd.class, n);
+				final var expected = genVec(perform(first, second, op), VecNd.class, n);
 				
 				assertEquals(expected, first.sub(second));
 			}));
@@ -216,7 +227,7 @@ public class VecDTest
 	@TestFactory
 	Stream<DynamicTest> getN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("VecNd[%d].get".formatted(n), () ->
 			{
 				final var values = randArray(n);
@@ -229,7 +240,7 @@ public class VecDTest
 	@TestFactory
 	Stream<DynamicTest> dotProductN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("VecNd[%d]·".formatted(n), () ->
 			{
 				final var vf = randArray(n);
@@ -244,7 +255,7 @@ public class VecDTest
 	@TestFactory
 	Stream<DynamicTest> lengthN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("‖VecNd[%d]‖".formatted(n), () ->
 			{
 				final var v	= randArray(n);

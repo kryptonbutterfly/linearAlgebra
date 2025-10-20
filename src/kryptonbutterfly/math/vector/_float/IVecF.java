@@ -1,5 +1,7 @@
 package kryptonbutterfly.math.vector._float;
 
+import static kryptonbutterfly.math.AlgebraSettings.*;
+
 import java.util.Arrays;
 
 import kryptonbutterfly.math.vector.IVector;
@@ -60,15 +62,16 @@ public interface IVecF<Vec extends IVecF<Vec>> extends IVector<Vec>
 	{
 		if (left == right)
 			return true;
-		if (right.getClass() != left.getClass())
+		if (!(right instanceof IVecF r))
 			return false;
-		@SuppressWarnings("unchecked")
-		final var vec = (Vec) right;
-		if (left.dimensions() != vec.dimensions())
+		if (left.dimensions() != r.dimensions())
 			return false;
 		for (int i = 0; i < left.dimensions(); i++)
-			if (left.get(i) != vec.get(i))
+		{
+			final float diff = left.get(i) - r.get(i);
+			if (Math.abs(diff) > settings.FLOAT_EPSILON)
 				return false;
+		}
 		return true;
 	}
 	
@@ -92,7 +95,7 @@ public interface IVecF<Vec extends IVecF<Vec>> extends IVector<Vec>
 		{
 			if (i > 0)
 				sb.append(", ");
-			sb.append(vec.get(i));
+			sb.append(settings.FP_STRINGIFY_TEMPLATE.formatted(vec.get(i)));
 		}
 		
 		sb.append(')');

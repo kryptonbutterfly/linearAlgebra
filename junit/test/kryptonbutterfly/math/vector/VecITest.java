@@ -2,11 +2,10 @@ package test.kryptonbutterfly.math.vector;
 
 import static kryptonbutterfly.math.utils.range.Range.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static test.kryptonbutterfly.math.vector.VectorTarget.*;
 
 import java.util.Random;
+import java.util.function.IntBinaryOperator;
 import java.util.function.IntUnaryOperator;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DynamicTest;
@@ -18,6 +17,7 @@ import kryptonbutterfly.math.vector._int.Vec2i;
 import kryptonbutterfly.math.vector._int.Vec3i;
 import kryptonbutterfly.math.vector._int.VecNi;
 import lombok.SneakyThrows;
+import test.kryptonbutterfly.math.Targets;
 
 public class VecITest
 {
@@ -41,31 +41,40 @@ public class VecITest
 		return (Vec) constructor.newInstance(values);
 	}
 	
+	private static <Vec extends IVecI<Vec>> IntUnaryOperator perform(Vec first, Vec second, IntBinaryOperator op)
+	{
+		return i -> op.applyAsInt(first.get(i), second.get(i));
+	}
+	
 	@Test
 	public void add()
 	{
+		final IntBinaryOperator op = (a, b) -> a + b;
+		
 		final var	f2	= randVec2();
 		final var	s2	= randVec2();
-		final var	e2	= genVec(i -> f2.get(i) + s2.get(i), Vec2i.class, 2);
+		final var	e2	= genVec(perform(f2, s2, op), Vec2i.class, 2);
 		assertEquals(e2, f2.add(s2));
 		
 		final var	f3	= randVec3();
 		final var	s3	= randVec3();
-		final var	e3	= genVec(i -> f3.get(i) + s3.get(i), Vec3i.class, 3);
+		final var	e3	= genVec(perform(f3, s3, op), Vec3i.class, 3);
 		assertEquals(e3, f3.add(s3));
 	}
 	
 	@Test
 	public void sub()
 	{
+		final IntBinaryOperator op = (a, b) -> a - b;
+		
 		final var	f2	= randVec2();
 		final var	s2	= randVec2();
-		final var	e2	= genVec(i -> f2.get(i) - s2.get(i), Vec2i.class, 2);
+		final var	e2	= genVec(perform(f2, s2, op), Vec2i.class, 2);
 		assertEquals(e2, f2.sub(s2));
 		
 		final var	f3	= randVec3();
 		final var	s3	= randVec3();
-		final var	e3	= genVec(i -> f3.get(i) - s3.get(i), Vec3i.class, 3);
+		final var	e3	= genVec(perform(f3, s3, op), Vec3i.class, 3);
 		assertEquals(e3, f3.sub(s3));
 	}
 	
@@ -150,13 +159,14 @@ public class VecITest
 	@TestFactory
 	Stream<DynamicTest> addN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		final IntBinaryOperator op = (a, b) -> a + b;
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("VecNi[%d].add".formatted(n), () ->
 			{
 				final var first	= genVec(_i -> randNum(), VecNi.class, n);
 				final var second = genVec(_i -> randNum(), VecNi.class, n);
 				
-				final var expected = genVec(i -> first.get(i) + second.get(i), VecNi.class, n);
+				final var expected = genVec(perform(first, second, op), VecNi.class, n);
 				
 				assertEquals(expected, first.add(second));
 			}));
@@ -165,13 +175,14 @@ public class VecITest
 	@TestFactory
 	Stream<DynamicTest> subN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		final IntBinaryOperator op = (a, b) -> a - b;
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("VecNi[%d].sub".formatted(n), () ->
 			{
 				final var first	= genVec(_i -> randNum(), VecNi.class, n);
 				final var second = genVec(_i -> randNum(), VecNi.class, n);
 				
-				final var expected = genVec(i -> first.get(i) - second.get(i), VecNi.class, n);
+				final var expected = genVec(perform(first, second, op), VecNi.class, n);
 				
 				assertEquals(expected, first.sub(second));
 			}));
@@ -180,7 +191,7 @@ public class VecITest
 	@TestFactory
 	Stream<DynamicTest> getN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("VecNi[%d].get".formatted(n), () ->
 			{
 				final var values = new int[n];
@@ -195,7 +206,7 @@ public class VecITest
 	@TestFactory
 	Stream<DynamicTest> dotProductN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("VecNi[%d]·".formatted(n), () ->
 			{
 				final var vf = randArray(n);
@@ -210,7 +221,7 @@ public class VecITest
 	@TestFactory
 	Stream<DynamicTest> lengthN()
 	{
-		return IntStream.range(0, MAX_TEST_DIMS)
+		return Targets.createDimsStream()
 			.mapToObj(n -> DynamicTest.dynamicTest("‖VecNi[%d]‖".formatted(n), () ->
 			{
 				final var v	= randArray(n);
