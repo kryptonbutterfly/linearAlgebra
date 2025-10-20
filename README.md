@@ -39,7 +39,7 @@ All `double` backed vectors implement [IVecD](https://github.com/kryptonbutterfl
 <dependency>
   <groupId>kryptonbutterfly</groupId>
   <artifactId>linear_algebra</artifactId>
-  <version>4.0.0</version>
+  <version>4.0.1</version>
 </dependency>
 ```
 

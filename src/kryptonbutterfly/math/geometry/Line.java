@@ -69,7 +69,7 @@ public class Line<Vec extends IVector<Vec>>
 		final var	dClass	= direction.getClass();
 		if (sClass != dClass)
 			throw new IllegalArgumentException(
-				"Support is of type %s, whilte direction is of type %s. Both arguments must be of the same type."
+				"Support is of type %s, while direction is of type %s. Both arguments must be of the same type."
 					.formatted(sClass, dClass));
 	}
 }
