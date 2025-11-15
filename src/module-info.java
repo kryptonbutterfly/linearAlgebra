@@ -8,5 +8,9 @@ module kryptonbutterfly.linear_algebra
 	exports kryptonbutterfly.math.vector._long;
 	exports kryptonbutterfly.math.geometry;
 	
+	exports kryptonbutterfly.math.matrix;
+	exports kryptonbutterfly.math.matrix._double;
+	exports kryptonbutterfly.math.matrix._float;
+	
 	requires kryptonbutterfly.Functional;
 }

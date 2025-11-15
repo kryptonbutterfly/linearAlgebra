@@ -13,9 +13,21 @@ public abstract class AMatrixD<Vec extends IVecD<Vec>, Mat extends AMatrixD<Vec,
 	}
 	
 	@Override
-	protected final void mulAdd(double[] target, int targetIndex, int thisIndex, double[] right, int rightIndex)
+	protected final void arrayMulAdd(double[] target, int targetIndex, int thisIndex, double[] right, int rightIndex)
 	{
 		target[targetIndex] += data[thisIndex] * right[rightIndex];
+	}
+	
+	@Override
+	protected void arrayAdd(double[] result, double[] right, int index)
+	{
+		result[index] = data[index] + right[index];
+	}
+	
+	@Override
+	protected void arraySub(double[] result, double[] right, int index)
+	{
+		result[index] = data[index] - right[index];
 	}
 	
 	final Vec mul(Vec vec, Function<double[], Vec> createArray)

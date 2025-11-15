@@ -17,12 +17,6 @@ public final class MatrixF extends AMatrixF<VecNf, MatrixF>
 	}
 	
 	@Override
-	protected void mulAdd(float[] target, int targetIndex, int thisIndex, float[] right, int rightIndex)
-	{
-		target[targetIndex] += data[thisIndex] * right[rightIndex];
-	}
-	
-	@Override
 	public VecNf mul(VecNf vec)
 	{
 		return mul(vec, VecNf::new);

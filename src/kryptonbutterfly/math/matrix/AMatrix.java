@@ -36,7 +36,7 @@ public abstract class AMatrix<Vec extends IVector<Vec>, Mat extends AMatrix<Vec,
 	 * {@code right[rightIndex]} and adds the result to {@code target[targetIndex]}.
 	 * </br>
 	 * </br>
-	 * {@code target[targetIndex] += this.data[thisIndex] + right[rightIndex]; }
+	 * {@code target[targetIndex] += this.data[thisIndex] * right[rightIndex]; }
 	 * 
 	 * @param target
 	 *            The target array to add the result to.
@@ -49,7 +49,7 @@ public abstract class AMatrix<Vec extends IVector<Vec>, Mat extends AMatrix<Vec,
 	 * @param rightIndex
 	 *            The index into the backing array of the right matrix.
 	 */
-	protected abstract void mulAdd(T target, int targetIndex, int thisIndex, T right, int rightIndex);
+	protected abstract void arrayMulAdd(T target, int targetIndex, int thisIndex, T right, int rightIndex);
 	
 	public abstract Vec mul(Vec vec);
 	
@@ -68,10 +68,30 @@ public abstract class AMatrix<Vec extends IVector<Vec>, Mat extends AMatrix<Vec,
 				{
 					final int	lI	= k + i * width;
 					final int	rI	= j + k * w;
-					mulAdd(result, tI, lI, right.data, rI);
+					arrayMulAdd(result, tI, lI, right.data, rI);
 				}
 			}
 		return m;
+	}
+	
+	protected abstract void arrayAdd(T result, T right, int index);
+	
+	protected abstract void arraySub(T result, T right, int index);
+	
+	public final Mat add(Mat addend)
+	{
+		final var result = arrayConstructor.apply(arraySize());
+		for (int i = 0; i < arraySize(); i++)
+			arrayAdd(result, addend.data, i);
+		return create(width, height, result);
+	}
+	
+	public final Mat sub(Mat subtrahend)
+	{
+		final var result = arrayConstructor.apply(width * height);
+		for (int i = 0; i < arraySize(); i++)
+			arraySub(result, subtrahend.data, i);
+		return create(width, height, result);
 	}
 	
 	public final Mat transpose()
