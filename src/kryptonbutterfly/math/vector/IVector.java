@@ -38,9 +38,27 @@ public interface IVector<Vec extends IVector<Vec>>
 	}
 	
 	/**
+	 * @return the length of {@code this} vector squared.
+	 */
+	public double lengthSQ();
+	
+	/**
 	 * @return The length of {@code this} vector.
 	 */
-	public double length();
+	public default double length()
+	{
+		return Math.sqrt(lengthSQ());
+	}
+	
+	/**
+	 * Calculates the dot product. <br/>
+	 * a·b = ‖a‖ ‖b‖ cos(θ)
+	 * 
+	 * @param other
+	 *            The second vector to form the dot product with
+	 * @return The dot product.
+	 */
+	public double dotProduct(Vec other);
 	
 	/**
 	 * @param canvas

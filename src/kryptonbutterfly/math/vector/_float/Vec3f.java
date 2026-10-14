@@ -20,6 +20,14 @@ public record Vec3f(float x, float y, float z) implements IVecF<Vec3f>
 		return new Vec3f((float) (x * factor), (float) (y * factor), (float) (z * factor));
 	}
 	
+	public Vec3f cross(Vec3f o)
+	{
+		return new Vec3f(
+			y * o.z - z * o.y,
+			z * o.x - x * o.z,
+			x * o.y - y * o.x);
+	}
+	
 	@Override
 	public int dimensions()
 	{

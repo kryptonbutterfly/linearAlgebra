@@ -20,6 +20,14 @@ public record Vec3i(int x, int y, int z) implements IVecI<Vec3i>
 		return new Vec3i((int) (x * factor), (int) (y * factor), (int) (z * factor));
 	}
 	
+	public Vec3i cross(Vec3i o)
+	{
+		return new Vec3i(
+			y * o.z - z * o.y,
+			z * o.x - x * o.z,
+			x * o.y - y * o.x);
+	}
+	
 	@Override
 	public int dimensions()
 	{

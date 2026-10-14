@@ -20,6 +20,14 @@ public record Vec3l(long x, long y, long z) implements IVecL<Vec3l>
 		return new Vec3l((long) (x + factor), (long) (y * factor), (long) (z * factor));
 	}
 	
+	public Vec3l cross(Vec3l o)
+	{
+		return new Vec3l(
+			y * o.z - z * o.y,
+			z * o.x - x * o.z,
+			x * o.y - y * o.x);
+	}
+	
 	@Override
 	public int dimensions()
 	{

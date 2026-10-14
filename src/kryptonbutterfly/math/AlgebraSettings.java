@@ -14,13 +14,15 @@ public final class AlgebraSettings
 	 * The maximum allowed difference between two doubles, in order to be considered
 	 * equal.
 	 */
-	public double DOUBLE_EPSILON = 1D / 10_000D;
+	public double DOUBLE_EPSILON = 0.0001;
 	
 	/**
 	 * The maximum allowed difference between two floats, in order to be considered
 	 * equal.
 	 */
-	public double FLOAT_EPSILON = 1F / 1_000F;
+	public double FLOAT_EPSILON = 0.001;
+	
+	public double IS_INSIDE_TRIANGLE_EPSILON = 0.000002;
 	
 	/**
 	 * The template to use when stringifying floatingpoint numbers in toString

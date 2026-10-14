@@ -15,6 +15,7 @@ import org.junit.jupiter.api.TestFactory;
 import kryptonbutterfly.math.vector._int.IVecI;
 import kryptonbutterfly.math.vector._int.Vec2i;
 import kryptonbutterfly.math.vector._int.Vec3i;
+import kryptonbutterfly.math.vector._int.Vec4i;
 import kryptonbutterfly.math.vector._int.VecNi;
 import lombok.SneakyThrows;
 import test.kryptonbutterfly.math.Targets;
@@ -60,6 +61,11 @@ public class VecITest
 		final var	s3	= randVec3();
 		final var	e3	= genVec(perform(f3, s3, op), Vec3i.class, 3);
 		assertEquals(e3, f3.add(s3));
+		
+		final var	f4	= randVec4();
+		final var	s4	= randVec4();
+		final var	e4	= genVec(perform(f4, s4, op), Vec4i.class, 4);
+		assertEquals(e4, f4.add(s4));
 	}
 	
 	@Test
@@ -76,6 +82,11 @@ public class VecITest
 		final var	s3	= randVec3();
 		final var	e3	= genVec(perform(f3, s3, op), Vec3i.class, 3);
 		assertEquals(e3, f3.sub(s3));
+		
+		final var	f4	= randVec4();
+		final var	s4	= randVec4();
+		final var	e4	= genVec(perform(f4, s4, op), Vec4i.class, 4);
+		assertEquals(e4, f4.sub(s4));
 	}
 	
 	@Test
@@ -84,21 +95,29 @@ public class VecITest
 		final int	x	= randNum();
 		final int	y	= randNum();
 		final int	z	= randNum();
+		final int	w	= randNum();
 		
 		final var	v2	= new Vec2i(x, y);
 		final var	v3	= new Vec3i(x, y, z);
+		final var	v4	= new Vec4i(x, y, z, w);
 		
 		assertEquals(x, v2.get(0));
 		assertEquals(x, v3.get(0));
+		assertEquals(x, v4.get(0));
 		
 		assertEquals(y, v2.get(1));
 		assertEquals(y, v3.get(1));
+		assertEquals(y, v4.get(1));
 		
 		assertEquals(z, v3.get(2));
+		assertEquals(z, v4.get(2));
+		
+		assertEquals(w, v4.get(3));
 		
 		assertThrows(IndexOutOfBoundsException.class, () -> v2.get(2));
 		assertThrows(IndexOutOfBoundsException.class, () -> v3.get(3));
 		assertThrows(ArrayIndexOutOfBoundsException.class, () -> new VecNi().get(0));
+		assertThrows(IndexOutOfBoundsException.class, () -> v4.get(4));
 	}
 	
 	@Test
@@ -112,11 +131,13 @@ public class VecITest
 		final var	v0	= new VecNi();
 		final var	v2	= new Vec2i(x, y);
 		final var	v3	= new Vec3i(x, y, z);
-		final var	v4	= new VecNi(x, y, z, w);
+		final var	vN	= new VecNi(x, y, z, w);
+		final var	v4	= new Vec4i(x, y, z, w);
 		
 		assertArrayEquals(new int[] {}, v0.toArray());
 		assertArrayEquals(new int[] { x, y }, v2.toArray());
 		assertArrayEquals(new int[] { x, y, z }, v3.toArray());
+		assertArrayEquals(new int[] { x, y, z, w }, vN.toArray());
 		assertArrayEquals(new int[] { x, y, z, w }, v4.toArray());
 	}
 	
@@ -136,6 +157,13 @@ public class VecITest
 		for (int i : range(f3.dimensions()))
 			dp3 += f3.get(i) * s3.get(i);
 		assertEquals(dp3, f3.dotProduct(s3));
+		
+		final var	f4	= randVec4();
+		final var	s4	= randVec4();
+		int			dp4	= 0;
+		for (int i : range(f4.dimensions()))
+			dp4 += f4.get(i) * s4.get(i);
+		assertEquals(dp4, f4.dotProduct(s4));
 	}
 	
 	@Test
@@ -154,6 +182,13 @@ public class VecITest
 			len3 += v3.get(i) * v3.get(i);
 		assertEquals(len3, v3.lengthSQ());
 		assertEquals(Math.sqrt(len3), v3.length());
+		
+		final var	v4		= randVec4();
+		int			len4	= 0;
+		for (int i : range(v4.dimensions()))
+			len4 += v4.get(i) * v4.get(i);
+		assertEquals(len4, v4.lengthSQ());
+		assertEquals(Math.sqrt(len4), v4.length());
 	}
 	
 	@TestFactory
@@ -254,5 +289,10 @@ public class VecITest
 	private Vec3i randVec3()
 	{
 		return new Vec3i(randNum(), randNum(), randNum());
+	}
+	
+	private Vec4i randVec4()
+	{
+		return new Vec4i(randNum(), randNum(), randNum(), randNum());
 	}
 }

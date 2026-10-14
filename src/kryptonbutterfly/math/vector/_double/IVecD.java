@@ -16,6 +16,7 @@ public interface IVecD<Vec extends IVecD<Vec>> extends IVector<Vec>
 	 *            The second vector to form the dot product with
 	 * @return The dot product.
 	 */
+	@Override
 	public default double dotProduct(Vec other)
 	{
 		validateDimensionalityMatch(other);
@@ -25,19 +26,11 @@ public interface IVecD<Vec extends IVecD<Vec>> extends IVector<Vec>
 		return sum;
 	}
 	
-	/**
-	 * @return the length of {@code this} vector squared.
-	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public default double lengthSQ()
 	{
 		return this.dotProduct((Vec) this);
-	}
-	
-	@Override
-	public default double length()
-	{
-		return Math.sqrt(lengthSQ());
 	}
 	
 	@Override

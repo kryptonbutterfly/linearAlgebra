@@ -40,6 +40,16 @@ All matrices extend [AMatrix](https://github.com/kryptonbutterfly/linearAlgebra/
 All `float` backed matrices extend [AMatrixF](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/matrix/_float/AMatrixF.java).</br>
 All `double` backed matrices extend [AMatrixD](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/matrix/_double/AMatrixD.java).
 
+ * Triangle implementations:
+
+type | Implementation
+:--- | :-------------
+`int` | [TriangleI](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/geometry/triangle/TriangleI.java)
+`long` | [TriangleL](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/geometry/triangle/TriangleL.java)
+`float` | [TriangleF](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/geometry/triangle/TriangleF.java)
+`double` | [TriangleD](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/geometry/triangle/TriangleD.java)
+
+All triangles implement [ITriangle](https://github.com/kryptonbutterfly/linearAlgebra/blob/master/src/kryptonbutterfly/math/geometry/triangle/ITriangle.java).
 
 ## Getting the latest release
 
@@ -54,7 +64,7 @@ All `double` backed matrices extend [AMatrixD](https://github.com/kryptonbutterf
 <dependency>
   <groupId>kryptonbutterfly</groupId>
   <artifactId>linear_algebra</artifactId>
-  <version>4.2.0</version>
+  <version>4.3.0</version>
 </dependency>
 ```
 
@@ -62,6 +72,7 @@ All `double` backed matrices extend [AMatrixD](https://github.com/kryptonbutterf
 
 java version | library version | Download
 :----------: | :-------------: | :-------
+21+          | 4.3.0           | [linear_algebra-4.3.0.jar](https://github.com/kryptonbutterfly/linearAlgebra/releases/download/v4.3.0/linear_algebra-4.3.0.jar)
 21+          | 4.2.0           | [linear_algebra-4.2.0.jar](https://github.com/kryptonbutterfly/linearAlgebra/releases/download/v4.2.0/linear_algebra-4.2.0.jar)
 18+          | 4.0.0           | [linear_algebra-4.0.0.jar](https://github.com/kryptonbutterfly/linearAlgebra/releases/download/v4.0.0/linear_algebra-4.0.0.jar)
 18+          | 3.0.0           | [linear_algebra-3.0.0.jar](https://github.com/kryptonbutterfly/linearAlgebra/releases/download/v3.0.0/linear_algebra-3.0.0.jar)

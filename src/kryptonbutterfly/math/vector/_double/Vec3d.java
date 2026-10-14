@@ -20,6 +20,14 @@ public record Vec3d(double x, double y, double z) implements IVecD<Vec3d>
 		return new Vec3d(x * factor, y * factor, z * factor);
 	}
 	
+	public Vec3d cross(Vec3d o)
+	{
+		return new Vec3d(
+			y * o.z - z * o.y,
+			z * o.x - x * o.z,
+			x * o.y - y * o.x);
+	}
+	
 	@Override
 	public int dimensions()
 	{
